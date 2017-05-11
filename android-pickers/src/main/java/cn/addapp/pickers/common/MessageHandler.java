@@ -5,7 +5,9 @@ import android.os.Message;
 
 import cn.addapp.pickers.widget.WheelView;
 
-
+/**
+ * 发送滚轮的各种消息
+ */
 final public class MessageHandler extends Handler {
     public static final int WHAT_INVALIDATE_LOOP_VIEW = 1000;
     public static final int WHAT_SMOOTH_SCROLL = 2000;

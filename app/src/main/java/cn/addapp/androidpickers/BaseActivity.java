@@ -209,7 +209,7 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
     protected boolean isTranslucentStatusBar() {
-        return true;
+        return true ;
     }
 
     protected <T> T inflateView(@LayoutRes int layoutResource) {

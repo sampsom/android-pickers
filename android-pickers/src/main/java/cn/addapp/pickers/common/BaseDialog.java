@@ -27,8 +27,10 @@ import cn.addapp.pickers.util.ScreenUtils;
  */
 public abstract class BaseDialog<V extends View> implements DialogInterface.OnKeyListener,
         DialogInterface.OnDismissListener {
+
     public static final int MATCH_PARENT = ViewGroup.LayoutParams.MATCH_PARENT;
     public static final int WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT;
+
     protected Activity activity;
     protected int screenWidthPixels;
     protected int screenHeightPixels;
@@ -37,24 +39,32 @@ public abstract class BaseDialog<V extends View> implements DialogInterface.OnKe
     private boolean isPrepared = false;
 
     public BaseDialog(Activity activity) {
+        //1.保存调用对话框的activity依赖
         this.activity = activity;
+        //2.获取屏幕的宽高
         DisplayMetrics metrics = ScreenUtils.displayMetrics(activity);
         screenWidthPixels = metrics.widthPixels;
         screenHeightPixels = metrics.heightPixels;
         initDialog();
     }
 
+    /**
+     * 创建基础的dialog
+     */
     private void initDialog() {
+        //1、创建一个铺满屏幕的frameLayout，这个frameLayout就是将来各种轮盘的父布局
         contentLayout = new FrameLayout(activity);
         contentLayout.setLayoutParams(new ViewGroup.LayoutParams(WRAP_CONTENT, WRAP_CONTENT));
         contentLayout.setFocusable(true);
         contentLayout.setFocusableInTouchMode(true);
         //contentLayout.setFitsSystemWindows(true);
+        //2、创建dialog，并且绑定坚挺
         dialog = new Dialog(activity);
         dialog.setCanceledOnTouchOutside(false);//触摸屏幕取消窗体
         dialog.setCancelable(false);//按返回键取消窗体
         dialog.setOnKeyListener(this);
         dialog.setOnDismissListener(this);
+        //3、设置对话框窗体的位置
         Window window = dialog.getWindow();
         if (window != null) {
             window.setGravity(Gravity.BOTTOM);
@@ -168,12 +178,13 @@ public abstract class BaseDialog<V extends View> implements DialogInterface.OnKe
     }
 
     /**
-     * 设置弹窗的宽和高
+     * 设置弹窗的宽和高，在设置弹窗的宽高的方法中也会调用这个方法
      *
      * @param width  宽
      * @param height 高
      */
     public void setSize(int width, int height) {
+        //设置对话框view的宽高
         if (width == MATCH_PARENT) {
             //360奇酷等手机对话框MATCH_PARENT时两边还会有边距，故强制填充屏幕宽
             width = screenWidthPixels;

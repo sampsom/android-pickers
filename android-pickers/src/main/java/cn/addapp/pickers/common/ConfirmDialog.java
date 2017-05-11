@@ -18,10 +18,12 @@ import cn.addapp.pickers.util.ConvertUtils;
 
 /**
  * 带确定及取消按钮的弹窗
+ * 实现了BaseDialog的makeContentView方法，但是又将该功能拆分成makeHeaderView,makeCenterView，makeFootView。并江makeCenterView留给子类实现
  * @author matt
  * blog: addapp.cn
  */
 public abstract class ConfirmDialog<V extends View> extends BaseDialog<View> {
+
     protected boolean topLineVisible = true;
     protected int topLineColor = 0xFFDDDDDD;
     protected int topLineHeight = 1;//dp
@@ -45,6 +47,7 @@ public abstract class ConfirmDialog<V extends View> extends BaseDialog<View> {
 
     public ConfirmDialog(Activity activity) {
         super(activity);
+        //确定 和 取消的文字
         cancelText = activity.getString(android.R.string.cancel);
         submitText = activity.getString(android.R.string.ok);
     }
